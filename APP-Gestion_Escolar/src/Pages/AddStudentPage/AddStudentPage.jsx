@@ -1,10 +1,15 @@
-import { Box} from "@mui/material";
+import { Box } from "@mui/material";
 import { StudentFormComponent } from "../../Components/StudentFormComponent/StudentFormComponent";
-//import { useForm } from "../../hooks/useForm";
-
+import { useForm } from "../../Hooks/useForm";
 
 export const AddStudentPage = () => {
- 
+  const {
+    studentsForm,
+    handleFileUploadImage,
+    handleChange,
+    handleSubmit,
+    handleClean,
+  } = useForm();
   return (
     <Box
       sx={{
@@ -15,8 +20,12 @@ export const AddStudentPage = () => {
       }}
     >
       <StudentFormComponent
-        
-        title={"Nueva Tarea"}
+        studentsForm={studentsForm}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleFileUploadImage={handleFileUploadImage}
+        handlerButton={handleClean}
+        title={"Nueva Estudiante"}
         textButton1={"Agregar"}
         textButton2={"Limpiar"}
       />

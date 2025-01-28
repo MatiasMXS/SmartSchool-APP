@@ -1,40 +1,90 @@
-/* eslint-disable react/prop-types */
 import {
   Button,
   Card,
+  CardActionArea,
+  CardMedia,
+  Checkbox,
   FormControl,
   Grid2,
   InputLabel,
+  ListItemText,
   MenuItem,
+  OutlinedInput,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
+import estudainteDefaul from "../../assets/estudianteDefaul.png";
+import { useState } from "react";
 
-
-export const StudentFormComponent = ({ title, textButton1, textButton2}) => {
-    
-
+export const StudentFormComponent = ({
+  studentsForm,
+  handleChange,
+  handleSubmit,
+  handleFileUploadImage,
+  handleClean,
+  title,
+  textButton1,
+  textButton2,
+}) => {
   return (
     <>
       <Card style={{ maxWidth: "800px", width: "100%", alignSelf: "center" }}>
         <Grid2
           container
           spacing={3}
-          sx={{ display: "flex", flexDirection: "column", margin: "20px" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            margin: "30px",
+            alignItems: "center",
+          }}
         >
-          <Grid2 item xs={12}>
-            <Typography variant="h5" gutterBottom>
+          <Grid2 item xs={12} sx={{ width: "100%" }}>
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{ textAlign: "left", width: "100%" }}
+            >
               {title}
             </Typography>
           </Grid2>
+          <CardActionArea
+            sx={{
+              width: "300px",
+              height: "300px",
+              objectFit: "cover",
+              margin: "0 auto",
+            }}
+          >
+            <input
+              type="file"
+              id="file-upload"
+              accept=".jpeg, .png, .jpg"
+              style={{ display: "none" }}
+              onChange={handleFileUploadImage}
+            />
+            <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
+              <CardMedia
+                component="img"
+                image={studentsForm.myFile || estudainteDefaul}
+                alt="imagen de estudiante"
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover", // Ajusta la imagen sin deformarla
+                }}
+              />
+            </label>
+          </CardActionArea>
+
           <Grid2
             item
             xs={12}
             sx={{
               display: "flex",
               flexDirection: "row",
-              gap: "12px",
+              gap: "80px",
               alignItems: "center",
             }}
           >
@@ -42,24 +92,23 @@ export const StudentFormComponent = ({ title, textButton1, textButton2}) => {
               <TextField
                 fullWidth
                 variant="outlined"
-                label="Titulo"
-                name="titulo"
-                value={() => {}}
-                onChange={() => {}}
+                label="Apellido"
+                name="apellido"
+                value={studentsForm?.nombre}
+                onChange={(e) => handleChange(e)}
               />
             </Grid2>
 
             <Grid2 item xs={4}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              label="Materia"
-              name="materia"
-              value={() => {}}
-              onChange={() => {}}
-            />
-          </Grid2>
-            
+              <TextField
+                fullWidth
+                variant="outlined"
+                label="Apellido"
+                name="apellido"
+                value={studentsForm?.apellido}
+                onChange={(e) => handleChange(e)}
+              />
+            </Grid2>
           </Grid2>
           <Grid2
             item
@@ -67,49 +116,62 @@ export const StudentFormComponent = ({ title, textButton1, textButton2}) => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              gap: "12px",
+              gap: "80px",
               alignItems: "center",
             }}
           >
-            <Grid2 item xs={4} sx={{ minWidth: 120 }}>
+            <Grid2 item xs={3}>
+              <TextField
+                fullWidth
+                variant="outlined"
+                label="Email"
+                name="email"
+                value={studentsForm?.email}
+                onChange={(e) => handleChange(e)}
+              />
+            </Grid2>
+            <Grid2 item xs={4} sx={{ minWidth: 225 }}>
+              <InputLabel id="demo-multiple-checkbox-label">Cursos</InputLabel>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Prioridad</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={() => {}}
-                  label="Prioridad"
-                  onChange={() => {}
-                  }
+                  labelId="demo-multiple-checkbox-label"
+                  id="demo-multiple-checkbox"
+                  multiple
+                  value={[] /* Aquí pon un array de valores seleccionados */}
+                  onChange={(event) => {
+                    // Maneja el cambio de selección
+                  }}
+                  input={<OutlinedInput label="Cursos" />}
                 >
-                  <MenuItem value={"alta"}>alta</MenuItem>
-                  <MenuItem value={"media"}>media</MenuItem>
-                  <MenuItem value={"baja"}>baja</MenuItem>
+                  <MenuItem value="curso1">
+                    <Checkbox
+                      checked={true /* Aquí pon una condición válida */}
+                    />
+                    <ListItemText primary="Curso 1" />
+                  </MenuItem>
+                  <MenuItem value="curso2">
+                    <Checkbox
+                      checked={false /* Aquí pon una condición válida */}
+                    />
+                    <ListItemText primary="Curso 2" />
+                  </MenuItem>
+                  <MenuItem value="curso2">
+                    <Checkbox
+                      checked={false /* Aquí pon una condición válida */}
+                    />
+                    <ListItemText primary="Curso 2" />
+                  </MenuItem>
+                  <MenuItem value="curso2">
+                    <Checkbox
+                      checked={false /* Aquí pon una condición válida */}
+                    />
+                    <ListItemText primary="Curso 2" />
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Grid2>
-            <Grid2 item xs={3}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              label="Etiqueta"
-              name="etiquetas"
-              value={() => {}}
-              onChange={() => {}}
-            />
           </Grid2>
-          </Grid2>
-          
-          <Grid2 item xs={3}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              label="Descripcion"
-              name="descripcion"
-              value={() => {}}
-              onChange={() => {}}
-            />
-          </Grid2>
+
           <Grid2
             item
             xs={12}
@@ -139,4 +201,4 @@ export const StudentFormComponent = ({ title, textButton1, textButton2}) => {
           disabled={añadiendoProducto}
         >
           {añadiendoProducto ? <CircularProgress size={24} /> : "Guardar"}
-        </Button>*/ 
+        </Button>*/

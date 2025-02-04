@@ -1,36 +1,116 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Outlet, useNavigate } from "react-router-dom";
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { Fab } from "@mui/material";
 
-export default function AppBarMenu({children}) {
-  const navigate = useNavigate(); 
+export default function AppBarMenu({ children }) {
+  const navigate = useNavigate();
+  const [value, setValue] = React.useState("estudiantes");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+
+    // Navegar si selecciona el tab de "Estudiantes"
+    if (newValue === "estudiantes") {
+      navigate("/estudiantes");
+    } else if (newValue === "cursos") {
+      navigate("/cursos");
+    }
+  };
+
+  React.useEffect(() => {
+    if (location.pathname !== "/estudiantes") {
+      setValue("");
+    }
+  }, [location.pathname]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={() => navigate("/dashboard")}
-            sx={{ mr: 2 }}
+        <Toolbar
+          sx={{ backgroundColor: "#fff", padding: "5px 0", gap: "12px" }}
+        >
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{ flexGrow: 1 }}
+            color="black"
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          SmartSchool AAP
+            SmartSchool AAP
           </Typography>
-          <Button color="inherit" onClick={() => navigate("/")}>Cerrar secion</Button>
+          <Box
+            sx={{
+              width: "40%",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              textColor="primary"
+              indicatorColor="primary"
+              aria-label="secondary tabs example"
+              sx={{}}
+            >
+              <Tab
+                value="estudiantes"
+                label="Estudiantes"
+                sx={{
+                  color: value === "estudiantes" ? "primary.main" : "black",
+                }}
+              />
+              <Tab
+                value="cursos"
+                label="Cursos"
+                sx={{ color: value === "cursos" ? "primary.main" : "black" }}
+              />
+            </Tabs>
+          </Box>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              backgroundColor: "#6194cd",
+              color: "#fff",
+              fontWeight: "bold",
+              borderRadius: "40px",
+              padding: "15px 0",
+              width: "15%", // Botón más ancho en móviles
+              ":hover": {
+                backgroundColor: "#3a6696",
+              },
+            }}
+            onClick={() => navigate("/")}
+          >
+            Cerrar sesión
+          </Button>
         </Toolbar>
       </AppBar>
+      {location.pathname !== "/add" && (
+        <Fab
+          color="primary"
+          aria-label="add"
+          onClick={() => navigate("/add")}
+          sx={{
+            position: "fixed",
+            padding: "35px 35px",
+            bottom: 16,
+            right: 16,
+          }}
+        >
+          <AddIcon />
+        </Fab>
+      )}
       {children}
       <Outlet />
     </Box>

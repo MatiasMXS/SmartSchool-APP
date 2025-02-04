@@ -1,0 +1,23 @@
+import { Box, LinearProgress, Typography } from "@mui/material";
+import { Location } from "../../Components/Location/Location";
+import { StudentsList } from "../../Components/StudetsList/StudentsList";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getStudents } from "../../services/getStudents";
+import StudentsToolBar from "../../Components/StudentsToolBar.jsx/StudentsToolBar";
+
+export const Dashboard2 = () => {
+  const dispatch = useDispatch();
+  const { students, isLoading, error } = useSelector((state) => state.students);
+
+  useEffect(() => {
+    dispatch(getStudents());
+  }, [dispatch]);
+  return (
+    <Box>
+      <Location />
+      <StudentsToolBar sx={{ marginBottom: 0 }} />
+      <StudentsList students={students} isLoading={isLoading} error={error} />
+    </Box>
+  );
+};

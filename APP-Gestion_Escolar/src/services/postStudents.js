@@ -1,9 +1,9 @@
 import axios from "axios";
-import { baseURL } from "../App";
+import { baseURL, estudiantesURL } from "../App";
 
 export const postsStudents = async (studentsForm) => {
   const response = await axios.post(
-    `${baseURL}`,
+    `${baseURL}${estudiantesURL}`,
 
     {
       nombre: studentsForm.nombre,

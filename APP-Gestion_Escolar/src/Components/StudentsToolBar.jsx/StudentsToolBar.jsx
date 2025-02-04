@@ -1,18 +1,25 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
-import AddIcon from "@mui/icons-material/Add";
-import SearchIcon from '@mui/icons-material/Search';
-import {useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getStudentsName } from "../../services/getStudentsName";
+import { getStudents } from "../../services/getStudents";
 
 export const StudentsToolBar = () => {
-  const navigate = useNavigate(); 
+  const dispatch = useDispatch();
+
+  const [searchName, setSearchName] = useState("");
+  const [buttonView, setButtonView] = useState(false);
+  const handleSearch = () => {
+    dispatch(getStudentsName({ name: searchName }));
+    setButtonView(true);
+  };
+  const handleBack = () => {
+    dispatch(getStudents());
+    setButtonView(false);
+  };
   return (
     <Box
       sx={{
@@ -23,61 +30,47 @@ export const StudentsToolBar = () => {
         backgroundColor: "#f8f8f8",
         borderRadius: "8px",
         gap: "12px",
-        width: "69%"
+        width: "69%",
+        margin: "0 auto", // Centrado horizontal
+        mt: 4,
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
-       
-        
-      </Box>
+      <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}></Box>
+      {buttonView && (
+        <Button variant="contained" color="primary" onClick={handleBack}>
+          <ArrowBackIosNewIcon />
+        </Button>
+      )}
+
       <TextField
         size="small"
         placeholder="Buscar..."
         variant="standard"
-        value={() => {}}
-        onChange={() => {}}
+        value={searchName}
+        onChange={(e) => setSearchName(e.target.value)}
         sx={{ flex: 1 }}
       />
 
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={handleSearch}>
         <SearchIcon />
-      </Button>
-      <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
-        <span
-          style={{ fontWeight: "bold", fontSize: "16px", color: "#8a2be2" }}
-        >
-          Curso:
-        </span>
-        <FormControl size="small" variant="standard">
-          <Select
-            value={() => {}}
-            onChange={() => {}}
-            displayEmpty
-            sx={{ minWidth: "150px" }}
-          >
-            <MenuItem value="">Matemática</MenuItem>
-            <MenuItem value="autor">Historia</MenuItem>
-            <MenuItem value="categoria">Ciencias</MenuItem>
-            <MenuItem value="categoria">Arte</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        onClick={() => navigate("/add")} // Usa navigate aquí
-        sx={{
-          textTransform: "none",
-          backgroundColor: "#8a2be2",
-          ":hover": { backgroundColor: "#6a1bbf" },
-        }}
-      >
-        Nuevo Estudiante
       </Button>
     </Box>
   );
 };
 
 export default StudentsToolBar;
+/*{location.pathname !== "/add" && (
+        <Fab
+          color="primary"
+          aria-label="add"
+          onClick={() => navigate("/add")}
+          sx={{
+            position: "fixed",
+            padding: "35px 35px",
+            bottom: 16,
+            right: 16,
+          }}
+        >
+          <AddIcon />
+        </Fab>
+      )}*/

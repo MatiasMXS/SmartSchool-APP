@@ -1,17 +1,40 @@
 import { useState } from "react";
 import { postsStudents } from "../services/postStudents";
+import { useDispatch } from "react-redux";
+import { getStudents } from "../services/getStudents";
+import { putStudents } from "../services/putStudents";
 
 export const useForm = () => {
+  const dispatch = useDispatch();
   const [studentsForm, setStudentsForm] = useState({
     nombre: "",
     apellido: "",
     email: "",
-    cursos: "",
+    cursos: [],
     myFile: "",
   });
 
+  const handleUpdate = (e) => {
+    setStudentsForm({
+      _id: e._id,
+      nombre: e.nombre,
+      apellido: e.apellido,
+      email: e.email,
+      cursos: [],
+      myFile: e.myFile,
+    });
+  };
+
   const handleChange = (e) => {
     setStudentsForm({ ...studentsForm, [e.target.name]: e.target.value });
+  };
+
+  const handleCursosChange = (event) => {
+    const { value } = event.target;
+    setStudentsForm({
+      ...studentsForm,
+      cursos: typeof value === "string" ? value.split(",") : value,
+    });
   };
 
   const handleFileUploadImage = async (e) => {
@@ -28,10 +51,14 @@ export const useForm = () => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmitNew = async () => {
     const sendData = await postsStudents(studentsForm);
-
     handleClean();
+  };
+  const handleSubmitUpload = async () => {
+    const { _id, ...dataWithoutId } = studentsForm;
+    const sendData = await putStudents(dataWithoutId, studentsForm._id);
+    dispatch(getStudents());
   };
 
   const handleClean = async () => {
@@ -39,7 +66,7 @@ export const useForm = () => {
       nombre: "",
       apellido: "",
       email: "",
-      cursos: "",
+      cursos: [],
       myFile: "",
     });
   };
@@ -63,7 +90,10 @@ export const useForm = () => {
     studentsForm,
     handleFileUploadImage,
     handleChange,
-    handleSubmit,
+    handleCursosChange,
+    handleSubmitNew,
+    handleSubmitUpload,
     handleClean,
+    handleUpdate,
   };
 };

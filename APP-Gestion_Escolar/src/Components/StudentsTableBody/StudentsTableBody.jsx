@@ -3,23 +3,26 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import React from "react";
 
-export const StudentsTableBody = ({ students }) => {
+export const StudentsTableBody = ({
+  students,
+  handleDeleteClick,
+  handleEditClick,
+}) => {
   return (
     <TableBody>
       {students.map((students) => (
         <React.Fragment key={students._id}>
-          <TableRow
-          >
+          <TableRow>
             <TableCell>{students.nombre}</TableCell>
             <TableCell>{students.apellido}</TableCell>
             <TableCell>{students.email}</TableCell>
             <TableCell>{students.cursos}</TableCell>
-            <TableCell>{/*foto del alumno*/ }</TableCell>
+            <TableCell>{/*foto del alumno*/}</TableCell>
             <TableCell>
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => {}}
+                onClick={() => handleEditClick(students)}
               >
                 <BorderColorIcon />
               </Button>
@@ -28,7 +31,7 @@ export const StudentsTableBody = ({ students }) => {
               <Button
                 variant="contained"
                 color="secondary"
-                onClick={() => {}}
+                onClick={() => handleDeleteClick(students)}
               >
                 <DeleteOutlineIcon />
               </Button>

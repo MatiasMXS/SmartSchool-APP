@@ -1,76 +1,88 @@
-
-import { Box, TextField, Button, Typography, Container } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useTheme } from "@mui/material/styles";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Detecta móviles (menos de 600px)
 
   const handleLogin = () => {
     if (username === "escuela" && password === "escuela") {
-      navigate("/dashboard");
+      navigate("/estudiantes");
     } else {
       setError("Credenciales incorrectas. Intenta nuevamente.");
     }
   };
 
   return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: isMobile ? "column" : "row", // En móviles, los elementos se apilan
+        height: "100vh",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 2,
+      }}
+    >
+      {/* Sección izquierda con texto */}
       <Box
         sx={{
+          width: isMobile ? "90%" : "70%", // En móviles más ancho
+          textAlign: isMobile ? "center" : "left",
+          paddingLeft: isMobile ? 0 : "10%", // Solo margen izquierdo en escritorio
+          mb: isMobile ? 4 : 0, // Espaciado en móviles
+        }}
+      >
+        <Typography variant="h3" fontWeight={500} mb={2} color="#fff">
+          SmartSchool APP
+        </Typography>
+        <Typography variant="body1" fontSize="18px" color="#a3abb1">
+          Esta aplicación te ayudará a gestionar a todos tus estudiantes de una
+          manera rápida y precisa.
+        </Typography>
+      </Box>
+
+      {/* Sección derecha con el formulario */}
+      <Box
+        sx={{
+          width: isMobile ? "90%" : "50%", // Ajuste para móviles y escritorio
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
           justifyContent: "center",
-          height: "100vh",
-         
         }}
       >
         <Box
           sx={{
-            position: "absolute",
-            top: "10%",
-            width: "100%",
+            width: isMobile ? "100%" : 500, // Ancho fijo en escritorio, flexible en móviles
+            backgroundColor: "#fff",
+            borderRadius: 3,
+            padding: 6,
+            boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)",
             textAlign: "center",
           }}
         >
           <Typography
-            variant="h1"
-            align="center"
-            sx={{ mb: 2,  }}
-          >
-            SmartSchool AAP
-          </Typography>
-          <Typography
-            variant="h3"
-            align="center"
-            sx={{ mb: 5,  }}
-          >
-            Aplicacionde de gestion escolar
-          </Typography>
-        </Box>
-        <Container
-          sx={{
-            width: 400,
-           
-            borderRadius: 2,
-            padding: 4,
-            boxShadow: "7px 13px 37px #000",
-          }}
-        >
-          <Typography
             variant="h4"
-            align="center"
             sx={{
               mb: 3,
-              fontWeight: "bold",
+              fontWeight: 300,
+              textAlign: "left",
             }}
           >
             Iniciar Sesión
           </Typography>
+
           <TextField
             label="Usuario"
             variant="outlined"
@@ -78,10 +90,6 @@ export const Login = () => {
             margin="normal"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            InputProps={{
-              style: {},
-            }}
-            InputLabelProps={{ style: {  } }}
           />
           <TextField
             label="Contraseña"
@@ -91,35 +99,36 @@ export const Login = () => {
             margin="normal"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            InputProps={{
-              style: { },
-            }}
-            InputLabelProps={{ style: {  } }}
           />
+
           {error && (
             <Typography color="error" variant="body2" mt={2}>
               {error}
             </Typography>
           )}
+
           <Box mt={3}>
             <Button
               variant="contained"
               fullWidth
-              onClick={handleLogin}
               sx={{
-                // Color primario
-                mt: 2,
-                mb: 2,
+                backgroundColor: "#6194cd",
+                color: "#fff",
+                fontWeight: "bold",
+                borderRadius: "40px",
+                padding: "20px 0",
+                width: isMobile ? "100%" : "40%", // Botón más ancho en móviles
                 ":hover": {
-                // Hover primario
+                  backgroundColor: "#3a6696",
                 },
               }}
+              onClick={handleLogin}
             >
-              Ingresar
+              INGRESAR
             </Button>
           </Box>
-        </Container>
+        </Box>
       </Box>
-  
+    </Box>
   );
 };

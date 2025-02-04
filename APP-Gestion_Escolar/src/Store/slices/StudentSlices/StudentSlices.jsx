@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getStudents } from "../../../services/getStudents";
+import { getStudentsName } from "../../../services/getStudentsName";
 
-const studentSlices = createSlice({
-  name: "studentSlices",
+const studentsSlices = createSlice({
+  name: "studentsSlices",
   initialState: {
     students: [],
     isLoading: false,
@@ -22,8 +23,20 @@ const studentSlices = createSlice({
       .addCase(getStudents.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(getStudentsName.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getStudentsName.fulfilled, (state, action) => {
+        state.students = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getStudentsName.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
 
-export default studentSlices.reducer;
+export default studentsSlices.reducer;

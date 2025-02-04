@@ -7,7 +7,8 @@ export const AddStudentPage = () => {
     studentsForm,
     handleFileUploadImage,
     handleChange,
-    handleSubmit,
+    handleCursosChange,
+    handleSubmitNew,
     handleClean,
   } = useForm();
   return (
@@ -22,7 +23,8 @@ export const AddStudentPage = () => {
       <StudentFormComponent
         studentsForm={studentsForm}
         handleChange={handleChange}
-        handleSubmit={handleSubmit}
+        handleCursosChange={handleCursosChange}
+        handleSubmit={handleSubmitNew}
         handleFileUploadImage={handleFileUploadImage}
         handlerButton={handleClean}
         title={"Nueva Estudiante"}

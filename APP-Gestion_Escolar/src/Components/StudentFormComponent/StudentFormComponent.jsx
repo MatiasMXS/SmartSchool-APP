@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Button,
   Card,
@@ -9,20 +10,21 @@ import {
   InputLabel,
   ListItemText,
   MenuItem,
-  OutlinedInput,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
 import estudainteDefaul from "../../assets/estudianteDefaul.png";
-import { useState } from "react";
+
+const listaDeCursos = ["Matemática", "Historia", "Ciencias", "Arte"];
 
 export const StudentFormComponent = ({
   studentsForm,
   handleChange,
+  handleCursosChange,
   handleSubmit,
   handleFileUploadImage,
-  handleClean,
+  handlerButton,
   title,
   textButton1,
   textButton2,
@@ -92,8 +94,8 @@ export const StudentFormComponent = ({
               <TextField
                 fullWidth
                 variant="outlined"
-                label="Apellido"
-                name="apellido"
+                label="Nombre"
+                name="nombre"
                 value={studentsForm?.nombre}
                 onChange={(e) => handleChange(e)}
               />
@@ -134,39 +136,17 @@ export const StudentFormComponent = ({
               <InputLabel id="demo-multiple-checkbox-label">Cursos</InputLabel>
               <FormControl fullWidth>
                 <Select
-                  labelId="demo-multiple-checkbox-label"
-                  id="demo-multiple-checkbox"
                   multiple
-                  value={[] /* Aquí pon un array de valores seleccionados */}
-                  onChange={(event) => {
-                    // Maneja el cambio de selección
-                  }}
-                  input={<OutlinedInput label="Cursos" />}
+                  value={studentsForm.cursos}
+                  onChange={handleCursosChange}
+                  renderValue={(selected) => selected.join(", ")}
                 >
-                  <MenuItem value="curso1">
-                    <Checkbox
-                      checked={true /* Aquí pon una condición válida */}
-                    />
-                    <ListItemText primary="Curso 1" />
-                  </MenuItem>
-                  <MenuItem value="curso2">
-                    <Checkbox
-                      checked={false /* Aquí pon una condición válida */}
-                    />
-                    <ListItemText primary="Curso 2" />
-                  </MenuItem>
-                  <MenuItem value="curso2">
-                    <Checkbox
-                      checked={false /* Aquí pon una condición válida */}
-                    />
-                    <ListItemText primary="Curso 2" />
-                  </MenuItem>
-                  <MenuItem value="curso2">
-                    <Checkbox
-                      checked={false /* Aquí pon una condición válida */}
-                    />
-                    <ListItemText primary="Curso 2" />
-                  </MenuItem>
+                  {listaDeCursos.map((curso) => (
+                    <MenuItem key={curso} value={curso}>
+                      <Checkbox checked={studentsForm.cursos.includes(curso)} />
+                      <ListItemText primary={curso} />
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid2>
@@ -182,10 +162,14 @@ export const StudentFormComponent = ({
               marginTop: "20px",
             }}
           >
-            <Button variant="contained" color="primary" onClick={() => {}}>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
               {textButton1}
             </Button>
-            <Button variant="contained" color="secondary" onClick={() => {}}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handlerButton}
+            >
               {textButton2}
             </Button>
           </Grid2>

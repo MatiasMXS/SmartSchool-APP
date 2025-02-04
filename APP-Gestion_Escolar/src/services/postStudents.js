@@ -8,6 +8,8 @@ export const postsStudents = async (studentsForm) => {
     {
       nombre: studentsForm.nombre,
       apellido: studentsForm.apellido,
+      edad: studentsForm.edad,
+      telefono: studentsForm.telefono,
       email: studentsForm.email,
       cursos: studentsForm.cursos,
       myFile: studentsForm.myFile,

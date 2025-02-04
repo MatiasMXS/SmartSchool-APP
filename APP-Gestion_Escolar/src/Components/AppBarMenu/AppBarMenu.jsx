@@ -6,12 +6,14 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Fab } from "@mui/material";
 
 export default function AppBarMenu({ children }) {
+    const location = useLocation();
+    const currentPage = location.pathname.replace("/", "")
   const navigate = useNavigate();
   const [value, setValue] = React.useState("estudiantes");
 
@@ -25,12 +27,6 @@ export default function AppBarMenu({ children }) {
       navigate("/cursos");
     }
   };
-
-  React.useEffect(() => {
-    if (location.pathname !== "/estudiantes") {
-      setValue("");
-    }
-  }, [location.pathname]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -100,7 +96,9 @@ export default function AppBarMenu({ children }) {
         <Fab
           color="primary"
           aria-label="add"
-          onClick={() => navigate("/add")}
+          onClick={() => {navigate("/add")
+            setValue("add");
+          }}
           sx={{
             position: "fixed",
             padding: "35px 35px",

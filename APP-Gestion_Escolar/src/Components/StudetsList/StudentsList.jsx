@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import fondo from "../../assets/hero_1.jpg";
+import estudainteDefaul from "../../assets/estudianteDefaul.png";
 import { useTheme } from "@mui/material/styles";
 import React, { useState } from "react";
 import ModalEdit from "../ModalEdit/ModalEdit";
@@ -22,6 +22,7 @@ import ScienceIcon from "@mui/icons-material/Science";
 import PaletteIcon from "@mui/icons-material/Palette";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import CalculateIcon from "@mui/icons-material/Calculate";
+import { Link } from "react-router-dom";
 
 export const StudentsList = ({ students, isLoading, error }) => {
   const theme = useTheme();
@@ -32,6 +33,8 @@ export const StudentsList = ({ students, isLoading, error }) => {
     _id: "",
     nombre: "",
     apellido: "",
+    edad: "",
+    telefono: "",
     email: "",
     cursos: [],
     myFile: "",
@@ -114,25 +117,24 @@ export const StudentsList = ({ students, isLoading, error }) => {
     >
       {students.map((student) => (
         <React.Fragment key={students._id}>
+          <Link key={students._id} to={`/datos-estudiante/${students._id}`}>
           <Card
             sx={{
               display: "flex",
               width: 750,
-              height: 175,
+              height: 200,
               boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)",
               borderRadius: 1,
               mt: 2,
             }}
           >
-            {/* Imagen a la izquierda */}
             <CardMedia
               component="img"
               sx={{ width: 200, objectFit: "cover" }}
-              image={student.myFile || fondo}
+              image={student.myFile || estudainteDefaul}
               alt={student.nombre || "Student Image"}
             />
 
-            {/* Contenedor de acción principal */}
             <CardActionArea
               sx={{ flex: 1, display: "flex", justifyContent: "space-between" }}
             >
@@ -141,10 +143,10 @@ export const StudentsList = ({ students, isLoading, error }) => {
                   {student.nombre} {student.apellido}
                 </Typography>
                 <Typography gutterBottom variant="h6">
-                  • Edad: {/*A implementar*/}
+                  • Edad: {student.edad}
                 </Typography>
                 <Typography gutterBottom variant="h6">
-                  • Telefono: {/*A implementar*/}
+                  • Telefono: {student.telefono}
                 </Typography>
                 <Typography gutterBottom variant="h6">
                   • email: {student.email}
@@ -192,7 +194,6 @@ export const StudentsList = ({ students, isLoading, error }) => {
               </Box>
             </CardActionArea>
 
-            {/* Contenedor para los botones en columna */}
             <CardActions
               sx={{
                 display: "flex",
@@ -219,10 +220,12 @@ export const StudentsList = ({ students, isLoading, error }) => {
               </Button>
             </CardActions>
           </Card>
+          </Link>
           <ModalEdit
             openModalEdit={openModalEdit}
             setOpenModalEdit={setOpenModalEdit}
             selectedRow={selectedRow}
+            
           />
           <ModalDelete
             openModalDelete={openModalDelete}

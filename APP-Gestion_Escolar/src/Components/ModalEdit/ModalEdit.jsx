@@ -2,13 +2,10 @@
 /* eslint-disable react/prop-types */
 import {
   Box,
-  Button,
-  CircularProgress,
+
   Modal,
-  TextField,
-  Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { StudentFormComponent } from "../StudentFormComponent/StudentFormComponent";
 import { useForm } from "../../Hooks/useForm";
 
@@ -28,8 +25,9 @@ export const ModalEdit = ({ openModalEdit, setOpenModalEdit, selectedRow }) => {
   };
 
   useEffect(() => {
-    handleUpdate(selectedRow);
+    if (selectedRow) handleUpdate(selectedRow);
   }, [selectedRow]);
+  
 
   const style = {
     position: "absolute",
@@ -44,6 +42,8 @@ export const ModalEdit = ({ openModalEdit, setOpenModalEdit, selectedRow }) => {
     boxShadow: 24,
     p: 4,
   };
+
+  
 
   return (
     <Modal

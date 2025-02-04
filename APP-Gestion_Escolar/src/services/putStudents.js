@@ -8,6 +8,8 @@ export const putStudents = async (studentsForm, idRow) => {
     const response = await axios.put(url, {
       nombre: studentsForm.nombre,
       apellido: studentsForm.apellido,
+      edad: studentsForm.edad,
+      telefono: studentsForm.telefono,
       email: studentsForm.email,
       cursos: studentsForm.cursos,
       myFile: studentsForm.myFile,

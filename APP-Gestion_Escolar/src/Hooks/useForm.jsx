@@ -7,8 +7,11 @@ import { putStudents } from "../services/putStudents";
 export const useForm = () => {
   const dispatch = useDispatch();
   const [studentsForm, setStudentsForm] = useState({
+    _id:"",
     nombre: "",
     apellido: "",
+    edad: "",
+    telefono: "",
     email: "",
     cursos: [],
     myFile: "",
@@ -19,8 +22,10 @@ export const useForm = () => {
       _id: e._id,
       nombre: e.nombre,
       apellido: e.apellido,
+      edad: e.edad,
+      telefono: e.telefono,
       email: e.email,
-      cursos: [],
+      cursos: e.cursos,
       myFile: e.myFile,
     });
   };
@@ -37,22 +42,24 @@ export const useForm = () => {
     });
   };
 
-  const handleFileUploadImage = async (e) => {
-    const file = e.target.files[0];
-    if (!file) {
-      console.error("No se seleccionó ningún archivo.");
-      return;
-    }
-    try {
-      const base64 = await convertirABases64(file);
-      setStudentsForm({ ...studentsForm, myFile: base64 });
-    } catch (error) {
-      console.error("Error al convertir el archivo:", error);
-    }
-  };
+ const handleFileUploadImage = async (e) => {
+  const file = e.target.files[0];
+  if (!file) {
+    console.error("No se seleccionó ningún archivo.");
+    return;
+  }
+  try {
+    const base64 = await convertirABases64(file);
+    setStudentsForm({ ...studentsForm, myFile: base64 });
+    e.target.value = ""; // Limpia el input para permitir seleccionar el mismo archivo si es necesario
+  } catch (error) {
+    console.error("Error al convertir el archivo:", error);
+  }
+};
 
   const handleSubmitNew = async () => {
-    const sendData = await postsStudents(studentsForm);
+    const { _id, ...dataWithoutId } = studentsForm;
+    const sendData = await postsStudents(dataWithoutId);
     handleClean();
   };
   const handleSubmitUpload = async () => {
@@ -65,6 +72,8 @@ export const useForm = () => {
     setStudentsForm({
       nombre: "",
       apellido: "",
+      edad: "",
+    telefono: "",
       email: "",
       cursos: [],
       myFile: "",

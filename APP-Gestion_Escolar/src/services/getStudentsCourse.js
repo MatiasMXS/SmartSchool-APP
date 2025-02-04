@@ -10,7 +10,6 @@ export const getStudentsCourse = createAsyncThunk(
       const url = `${baseURL}${estudiantesURL}${cursoURL}/${course}`;
 
       const response = await axios.get(url);
-      console.log("aqui", response.data);
 
       return response.data;
     } catch (error) {

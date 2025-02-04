@@ -6,7 +6,7 @@ import {
   CardMedia,
   Checkbox,
   FormControl,
-  Grid2,
+  Grid,
   InputLabel,
   ListItemText,
   MenuItem,
@@ -30,39 +30,20 @@ export const StudentFormComponent = ({
   textButton2,
 }) => {
   return (
-    <>
-      <Card style={{ maxWidth: "800px", width: "100%", alignSelf: "center" }}>
-        <Grid2
-          container
-          spacing={3}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            margin: "30px",
-            alignItems: "center",
-          }}
-        >
-          <Grid2 item xs={12} sx={{ width: "100%" }}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{ textAlign: "left", width: "100%" }}
-            >
-              {title}
-            </Typography>
-          </Grid2>
-          <CardActionArea
-            sx={{
-              width: "300px",
-              height: "300px",
-              objectFit: "cover",
-              margin: "0 auto",
-            }}
-          >
+    <Card style={{ maxWidth: "800px", width: "100%", margin: "0 auto" }}>
+      <Grid container spacing={3} sx={{ padding: "30px" }}>
+        <Grid item xs={12}>
+          <Typography variant="h5" gutterBottom>
+            {title}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12} sx={{ textAlign: "center" }}>
+          <CardActionArea sx={{ maxWidth: 300, margin: "0 auto" }}>
             <input
               type="file"
               id="file-upload"
-              accept=".jpeg, .png, .jpg"
+              accept="image/*"
               style={{ display: "none" }}
               onChange={handleFileUploadImage}
             />
@@ -71,111 +52,108 @@ export const StudentFormComponent = ({
                 component="img"
                 image={studentsForm.myFile || estudainteDefaul}
                 alt="imagen de estudiante"
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover", // Ajusta la imagen sin deformarla
-                }}
+                sx={{ width: "100%", height: "300px", objectFit: "cover" }}
               />
             </label>
           </CardActionArea>
+        </Grid>
 
-          <Grid2
-            item
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "80px",
-              alignItems: "center",
-            }}
-          >
-            <Grid2 item xs={4}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                label="Nombre"
-                name="nombre"
-                value={studentsForm?.nombre}
-                onChange={(e) => handleChange(e)}
-              />
-            </Grid2>
+        {/* Formulario */}
+        <Grid container item spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              label="Nombre"
+              name="nombre"
+              value={studentsForm?.nombre}
+              onChange={handleChange}
+            />
+          </Grid>
 
-            <Grid2 item xs={4}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                label="Apellido"
-                name="apellido"
-                value={studentsForm?.apellido}
-                onChange={(e) => handleChange(e)}
-              />
-            </Grid2>
-          </Grid2>
-          <Grid2
-            item
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "80px",
-              alignItems: "center",
-            }}
-          >
-            <Grid2 item xs={3}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                label="Email"
-                name="email"
-                value={studentsForm?.email}
-                onChange={(e) => handleChange(e)}
-              />
-            </Grid2>
-            <Grid2 item xs={4} sx={{ minWidth: 225 }}>
-              <InputLabel id="demo-multiple-checkbox-label">Cursos</InputLabel>
-              <FormControl fullWidth>
-                <Select
-                  multiple
-                  value={studentsForm.cursos}
-                  onChange={handleCursosChange}
-                  renderValue={(selected) => selected.join(", ")}
-                >
-                  {listaDeCursos.map((curso) => (
-                    <MenuItem key={curso} value={curso}>
-                      <Checkbox checked={studentsForm.cursos.includes(curso)} />
-                      <ListItemText primary={curso} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid2>
-          </Grid2>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              label="Apellido"
+              name="apellido"
+              value={studentsForm?.apellido}
+              onChange={handleChange}
+            />
+          </Grid>
 
-          <Grid2
-            item
-            xs={12}
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              gap: "10px",
-              marginTop: "20px",
-            }}
-          >
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              {textButton1}
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handlerButton}
-            >
-              {textButton2}
-            </Button>
-          </Grid2>
-        </Grid2>
-      </Card>
-    </>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              label="Edad"
+              name="edad"
+              type="number"
+              value={studentsForm?.edad}
+              onChange={handleChange}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              label="Teléfono"
+              name="telefono"
+              type="tel"
+              value={studentsForm?.telefono}
+              onChange={handleChange}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              label="Email"
+              name="email"
+              type="email"
+              value={studentsForm?.email}
+              onChange={handleChange}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel id="cursos-label">Cursos</InputLabel>
+              <Select
+                multiple
+                label="Cursos"
+                value={studentsForm.cursos}
+                onChange={handleCursosChange}
+                renderValue={(selected) => selected.join(", ")}
+              >
+                {listaDeCursos.map((curso) => (
+                  <MenuItem key={curso} value={curso}>
+                    <Checkbox checked={studentsForm.cursos.includes(curso)} />
+                    <ListItemText primary={curso} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+
+        {/* Botones */}
+        <Grid
+          item
+          xs={12}
+          sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 2 }}
+        >
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            {textButton1}
+          </Button>
+          <Button variant="contained" color="secondary" onClick={handlerButton}>
+            {textButton2}
+          </Button>
+        </Grid>
+      </Grid>
+    </Card>
   );
 };
 

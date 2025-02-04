@@ -9,6 +9,8 @@ import { Dashboard2 } from "./Pages/Dashboard2/Dashboard2";
 import LoginPage from "./Pages/Login/LoginPage";
 import { AddStudentPage } from "./Pages/AddStudentPage/AddStudentPage";
 import { CursosPage } from "./Pages/CursosPage/CursosPage";
+import StudentData from "./Pages/StudentData/StudentData";
+
 
 export const baseURL = import.meta.env.VITE_BASE_URL;
 export const estudiantesURL = import.meta.env.VITE_STUDENTS;
@@ -24,6 +26,7 @@ function App() {
           <Route path="/estudiantes" element={<Dashboard2 />} />
           <Route path="/cursos" element={<CursosPage />} />
           <Route path="/add" element={<AddStudentPage />} />
+          <Route path="/datos-estudiante/:id" element={<StudentData/>} />
         </Route>
       </>
     )

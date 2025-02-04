@@ -27,11 +27,11 @@ const courseMockup = [
 export const CourseSelector = () => {
   const dispatch = useDispatch();
 
-  const [value, setValue] = useState("Matemática");
+  const [value, setValue] = useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    dispatch(getStudentsCourse({ course: value }));
+    dispatch(getStudentsCourse({ course: newValue }));
   };
 
   return (
@@ -53,12 +53,12 @@ export const CourseSelector = () => {
       <Toolbar sx={{ backgroundColor: "#fff", width: "100%" }}>
         <Tabs
           value={value}
-          onChange={handleChange}
+          onChange={(event, newValue) => handleChange(event, newValue)}
           textColor="primary"
           indicatorColor="primary"
           aria-label="secondary tabs example"
           sx={{ width: "100%" }}
-          variant="fullWidth" // Hace que los tabs ocupen todo el ancho
+          variant="fullWidth"
         >
           {courseMockup.map((course) => (
             <Tab

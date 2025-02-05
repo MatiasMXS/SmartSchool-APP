@@ -51,10 +51,9 @@ const StudentData = ({ onEdit, onDelete }) => {
   const handleSave = () => {
     handleSubmitUpload();
     setOpenModalEdit(false);
-    fetchData();
 
     setTimeout(() => {
-      window.location.reload(true);
+      fetchData();
     }, 500);
   };
 

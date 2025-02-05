@@ -1,4 +1,4 @@
-import { Login } from "../../ComponentTemp/Login/Login";
+import { Login } from "../../components/Login/Login";
 import fondo from "../../assets/hero_1.jpg";
 
 const LoginPage = () => {

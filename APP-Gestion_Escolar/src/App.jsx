@@ -4,7 +4,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import AppBarMenu from "./Components/AppBarMenu/AppBarMenu";
+import AppBarMenu from "./ComponentTemp/AppBarMenu/AppBarMenu";
 import LoginPage from "./Pages/Login/LoginPage";
 import { AddStudentPage } from "./Pages/AddStudentPage/AddStudentPage";
 import { CursosPage } from "./Pages/CursosPage/CursosPage";

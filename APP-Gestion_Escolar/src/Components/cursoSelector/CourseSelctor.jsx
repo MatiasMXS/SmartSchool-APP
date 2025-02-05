@@ -2,7 +2,7 @@ import { Avatar, Box, Tab, Tabs, Toolbar } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getStudentsCourse } from "../../services/getStudentsCourse";
-import { CoursesMockup } from "../../utils/CoursesMockup";
+import { CoursesMockup } from "../../Utils/CoursesMockup";
 
 export const CourseSelector = () => {
   const dispatch = useDispatch();

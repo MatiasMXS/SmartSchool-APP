@@ -15,9 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import estudainteDefaul from "../../assets/estudianteDefaul.png";
-
 const listaDeCursos = ["Matemática", "Historia", "Ciencias", "Arte"];
-
 export const StudentFormComponent = ({
   studentsForm,
   handleChange,
@@ -156,11 +154,3 @@ export const StudentFormComponent = ({
     </Card>
   );
 };
-
-/*<Button
-          variant="contained"
-          onClick={}
-          disabled={añadiendoProducto}
-        >
-          {añadiendoProducto ? <CircularProgress size={24} /> : "Guardar"}
-        </Button>*/

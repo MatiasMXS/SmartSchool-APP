@@ -5,12 +5,11 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import AppBarMenu from "./Components/AppBarMenu/AppBarMenu";
-import { Dashboard2 } from "./Pages/Dashboard2/Dashboard2";
+import { StudentsPage } from "./Pages/StudentsPage/StudentsPage";
 import LoginPage from "./Pages/Login/LoginPage";
 import { AddStudentPage } from "./Pages/AddStudentPage/AddStudentPage";
 import { CursosPage } from "./Pages/CursosPage/CursosPage";
 import StudentData from "./Pages/StudentData/StudentData";
-
 
 export const baseURL = import.meta.env.VITE_BASE_URL;
 export const estudiantesURL = import.meta.env.VITE_STUDENTS;
@@ -23,10 +22,10 @@ function App() {
       <>
         <Route path="/" element={<LoginPage />} />,
         <Route element={<AppBarMenu />}>
-          <Route path="/estudiantes" element={<Dashboard2 />} />
+          <Route path="/estudiantes" element={<StudentsPage />} />
           <Route path="/cursos" element={<CursosPage />} />
           <Route path="/add" element={<AddStudentPage />} />
-          <Route path="/datos-estudiante/:id" element={<StudentData/>} />
+          <Route path="/datos-estudiante/:id" element={<StudentData />} />
         </Route>
       </>
     )

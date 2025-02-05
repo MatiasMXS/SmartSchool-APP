@@ -10,23 +10,10 @@ import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Fab } from "@mui/material";
+import { useAppBarMenu } from "../../Hooks/useAppbarMenu";
 
 export default function AppBarMenu({ children }) {
-    const location = useLocation();
-    const currentPage = location.pathname.replace("/", "")
-  const navigate = useNavigate();
-  const [value, setValue] = React.useState("estudiantes");
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-
-    // Navegar si selecciona el tab de "Estudiantes"
-    if (newValue === "estudiantes") {
-      navigate("/estudiantes");
-    } else if (newValue === "cursos") {
-      navigate("/cursos");
-    }
-  };
+  const { location, navigate, value, setValue, handleChange } = useAppBarMenu();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -92,23 +79,25 @@ export default function AppBarMenu({ children }) {
           </Button>
         </Toolbar>
       </AppBar>
-      {location.pathname !== "/add" && (
-        <Fab
-          color="primary"
-          aria-label="add"
-          onClick={() => {navigate("/add")
-            setValue("add");
-          }}
-          sx={{
-            position: "fixed",
-            padding: "35px 35px",
-            bottom: 16,
-            right: 16,
-          }}
-        >
-          <AddIcon />
-        </Fab>
-      )}
+      {location.pathname !== "/add" &&
+        !location.pathname.startsWith("/datos-estudiante") && (
+          <Fab
+            color="primary"
+            aria-label="add"
+            onClick={() => {
+              navigate("/add");
+              setValue("add");
+            }}
+            sx={{
+              position: "fixed",
+              padding: "35px 35px",
+              bottom: 16,
+              right: 16,
+            }}
+          >
+            <AddIcon />
+          </Fab>
+        )}
       {children}
       <Outlet />
     </Box>

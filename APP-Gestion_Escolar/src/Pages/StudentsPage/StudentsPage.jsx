@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { getStudents } from "../../services/getStudents";
 import StudentsToolBar from "../../Components/StudentsToolBar.jsx/StudentsToolBar";
 
-export const Dashboard2 = () => {
+export const StudentsPage = () => {
   const dispatch = useDispatch();
   const { students, isLoading, error } = useSelector((state) => state.students);
 

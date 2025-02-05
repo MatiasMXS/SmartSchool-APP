@@ -31,7 +31,7 @@ export const StudentsToolBar = () => {
         borderRadius: "8px",
         gap: "12px",
         width: "69%",
-        margin: "0 auto", // Centrado horizontal
+        margin: "0 auto",
         mt: 4,
       }}
     >
@@ -59,18 +59,3 @@ export const StudentsToolBar = () => {
 };
 
 export default StudentsToolBar;
-/*{location.pathname !== "/add" && (
-        <Fab
-          color="primary"
-          aria-label="add"
-          onClick={() => navigate("/add")}
-          sx={{
-            position: "fixed",
-            padding: "35px 35px",
-            bottom: 16,
-            right: 16,
-          }}
-        >
-          <AddIcon />
-        </Fab>
-      )}*/

@@ -1,11 +1,73 @@
 import { Avatar, Box, Fab, Grid, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import estudainteDefaul from "../../assets/estudianteDefaul.png";
-import ScienceIcon from "@mui/icons-material/Science";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import getStudentsId from "../../services/getStudentsId";
+import { CoursesMockup } from "../../utils/CoursesMockup";
+import ModalEdit from "../../Components/ModalEdit/ModalEdit";
+import { ModalDelete } from "../../Components/ModalDelete/ModalDelete";
+import { useDeleteStudent } from "../../Hooks/useDeleteStudent";
+import { useForm } from "../../Hooks/useForm";
 
-const StudentData = ({ studentData, onEdit, onDelete }) => {
-  const { nombre, apellido, edad, telefono, email, cursos } = studentData || {};
+const StudentData = ({ onEdit, onDelete }) => {
+  const {
+    studentsForm,
+    handleFileUploadImage,
+    handleChange,
+    handleCursosChange,
+    handleSubmitUpload,
+    handleUpdate,
+  } = useForm();
+  const { id } = useParams();
+  const [student, setStudent] = useState({});
+  const navigate = useNavigate();
+  const { handleDelete } = useDeleteStudent();
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+
+  const fetchData = async () => {
+    try {
+      const studentData = await getStudentsId(id);
+      setStudent(studentData);
+    } catch (error) {
+      console.error("Error al obtener los datos:", error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, [id]);
+
+  const handleDeleteButton = () => {
+    handleDelete(student);
+    setOpenModalDelete(false);
+
+    setTimeout(() => {
+      navigate("/estudiantes");
+    }, 500); // Espera de 2 segundos (2000 ms)
+  };
+
+  const handleSave = () => {
+    handleSubmitUpload();
+    setOpenModalEdit(false);
+    fetchData();
+
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 500);
+  };
+
+  useEffect(() => {
+    if (student) handleUpdate(student);
+  }, [student]);
+
+  const { nombre, apellido, edad, telefono, email, cursos, myFile } = student;
+
+  const getCourseIcon = (courseName) => {
+    const course = CoursesMockup.find((icon) => icon.id === courseName);
+    return course ? course.icon : "?"; // Devuelve el icono si existe, si no devuelve "?"
+  };
 
   return (
     <Grid container sx={{ height: "100vh" }}>
@@ -14,14 +76,46 @@ const StudentData = ({ studentData, onEdit, onDelete }) => {
         <Box
           sx={{
             height: "100%",
-            backgroundImage: `url(${estudainteDefaul})`,
+            backgroundImage: `url(${myFile || estudainteDefaul})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         />
       </Grid>
 
-      {/* Información del estudiante en el centro */}
+      {/* Información del estudiante */}
+      <Grid
+        item
+        xs={12}
+        md={4}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          pl: 6,
+        }}
+      >
+        <Typography variant="h3" gutterBottom>
+          Información del Estudiante
+        </Typography>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Nombre: {nombre}
+        </Typography>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Apellido: {apellido}
+        </Typography>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Edad: {edad}
+        </Typography>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Teléfono: {telefono}
+        </Typography>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Email: {email}
+        </Typography>
+      </Grid>
+
+      {/* Cursos inscritos */}
       <Grid
         item
         xs={12}
@@ -30,82 +124,74 @@ const StudentData = ({ studentData, onEdit, onDelete }) => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center",
         }}
       >
-        <Box>
-          <Typography variant="h3" gutterBottom sx={{ mb:5 }}>
-            Información del Estudiante
-          </Typography>
-          <Typography variant="h4" sx={{ mb: 5 }}>
-            Nombre: {nombre}
-          </Typography>
-          <Typography variant="h4" sx={{ mb: 5 }}>
-            Apellido: {apellido}
-          </Typography>
-          <Typography variant="h4" sx={{ mb: 5 }}>
-            Edad: {edad}
-          </Typography>
-          <Typography variant="h4" sx={{ mb: 5 }}>
-            Teléfono: {telefono}
-          </Typography>
-          <Typography variant="h4" sx={{ mb: 5 }}>
-            Email: {email}
-          </Typography>
+        <Typography variant="h6" gutterBottom>
+          Cursos inscritos:
+        </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          {cursos?.map((curso, index) => (
+            <Box
+              key={index}
+              sx={{ display: "flex", alignItems: "center", gap: 1 }}
+            >
+              <Avatar sx={{ bgcolor: "primary.main", width: 50, height: 50 }}>
+                {getCourseIcon(curso)}
+              </Avatar>
+              <Typography variant="body2" color="text.secondary">
+                {curso}
+              </Typography>
+            </Box>
+          ))}
         </Box>
       </Grid>
 
+      {/* Botones a la derecha */}
       <Grid
         item
         xs={12}
-        md={3}
+        md={1}
         sx={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center",
-        }}
-      ><Box sx={{ mb: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Cursos inscritos:
-      </Typography>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-        {cursos?.map((curso, index) => (
-          <Box key={index} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Avatar sx={{ bgcolor: "primary.main", width: 40, height: 40 }}>
-              <ScienceIcon />
-            </Avatar>
-            <Typography variant="body2" color="text.secondary">
-              {curso}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
-    </Box></Grid>
-
-      {/* Cursos inscritos y botones */}
-      <Grid
-        item
-        xs={12}
-        md={3}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          alignItems: "flex-end",
+          pr: 4,
         }}
       >
-
-        {/* Botones FAB verticalmente centrados */}
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <Fab color="primary" aria-label="edit" onClick={onEdit}>
+          <Fab
+            color="primary"
+            aria-label="edit"
+            sx={{ padding: "35px 35px" }}
+            onClick={() => setOpenModalEdit(true)}
+          >
             <BorderColorIcon />
           </Fab>
-          <Fab color="secondary" aria-label="delete" onClick={onDelete}>
+          <Fab
+            color="secondary"
+            aria-label="delete"
+            sx={{ padding: "35px 35px" }}
+            onClick={() => setOpenModalDelete(true)}
+          >
             <DeleteOutlineIcon />
           </Fab>
         </Box>
       </Grid>
+      <ModalEdit
+        studentsForm={studentsForm}
+        handleChange={handleChange}
+        handleCursosChange={handleCursosChange}
+        handleFileUploadImage={handleFileUploadImage}
+        openModalEdit={openModalEdit}
+        setOpenModalEdit={setOpenModalEdit}
+        handleSave={handleSave}
+      />
+      <ModalDelete
+        openModalDelete={openModalDelete}
+        setOpenModalDelete={setOpenModalDelete}
+        handleDeleteButton={handleDeleteButton}
+      />
     </Grid>
   );
 };

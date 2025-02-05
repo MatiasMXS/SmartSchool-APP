@@ -1,28 +1,8 @@
 import { Avatar, Box, Tab, Tabs, Toolbar } from "@mui/material";
-import ScienceIcon from "@mui/icons-material/Science";
-import PaletteIcon from "@mui/icons-material/Palette";
-import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
-import CalculateIcon from "@mui/icons-material/Calculate";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getStudentsCourse } from "../../services/getStudentsCourse";
-
-const courseMockup = [
-  {
-    id: 1,
-    tabValue: "Matemática",
-    tabLabel: "Matemática",
-    icon: <CalculateIcon />,
-  },
-  {
-    id: 2,
-    tabValue: "Historia",
-    tabLabel: "Historia",
-    icon: <HistoryEduIcon />,
-  },
-  { id: 3, tabValue: "Ciencias", tabLabel: "Ciencias", icon: <ScienceIcon /> },
-  { id: 4, tabValue: "Arte", tabLabel: "Arte", icon: <PaletteIcon /> },
-];
+import { CoursesMockup } from "../../utils/CoursesMockup";
 
 export const CourseSelector = () => {
   const dispatch = useDispatch();
@@ -60,18 +40,18 @@ export const CourseSelector = () => {
           sx={{ width: "100%" }}
           variant="fullWidth"
         >
-          {courseMockup.map((course) => (
+          {CoursesMockup.map((course) => (
             <Tab
               key={course.id}
-              value={course.tabValue}
+              value={course.id}
               icon={
                 <Avatar sx={{ bgcolor: "primary.main", width: 35, height: 35 }}>
                   {course.icon}
                 </Avatar>
               }
-              label={course.tabLabel}
+              label={course.id}
               sx={{
-                color: value === course.tabValue ? "primary.main" : "black",
+                color: value === course.id ? "primary.main" : "black",
                 flexDirection: "column", // Hace que el ícono esté arriba del texto
                 alignItems: "center",
               }}

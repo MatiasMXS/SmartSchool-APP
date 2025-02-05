@@ -8,72 +8,34 @@ import {
   CardMedia,
   LinearProgress,
   Typography,
-  useMediaQuery,
   Avatar,
 } from "@mui/material";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import estudainteDefaul from "../../assets/estudianteDefaul.png";
-import { useTheme } from "@mui/material/styles";
-import React, { useState } from "react";
+import React from "react";
 import ModalEdit from "../ModalEdit/ModalEdit";
 import { ModalDelete } from "../ModalDelete/ModalDelete";
-import ScienceIcon from "@mui/icons-material/Science";
-import PaletteIcon from "@mui/icons-material/Palette";
-import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
-import CalculateIcon from "@mui/icons-material/Calculate";
-import { Link } from "react-router-dom";
+import { useStudentList } from "../../Hooks/useStudentList";
 
 export const StudentsList = ({ students, isLoading, error }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [openModalDelete, setOpenModalDelete] = useState(false);
-  const [openModalEdit, setOpenModalEdit] = useState(false);
-  const [selectedRow, setSelectedRow] = useState({
-    _id: "",
-    nombre: "",
-    apellido: "",
-    edad: "",
-    telefono: "",
-    email: "",
-    cursos: [],
-    myFile: "",
-  });
-  const courseIcons = [
-    {
-      id: "Matemática",
-      icon: <CalculateIcon />,
-    },
-    {
-      id: "Historia",
-      icon: <HistoryEduIcon />,
-    },
-    {
-      id: "Ciencias",
-      icon: <ScienceIcon />,
-    },
-    {
-      id: "Arte",
-      icon: <PaletteIcon />,
-    },
-  ];
-  const getCourseIcon = (courseName) => {
-    const course = courseIcons.find((icon) => icon.id === courseName);
-    return course ? course.icon : "?"; // Devuelve el icono si existe, si no devuelve "?"
-  };
-
-  const handleDeleteClick = (rowData) => {
-    setSelectedRow(rowData);
-    console.log(rowData);
-
-    setOpenModalDelete(true);
-  };
-
-  const handleEditClick = (rowData) => {
-    setSelectedRow(rowData);
-    console.log(rowData);
-    setOpenModalEdit(true);
-  };
+  const {
+    studentsForm,
+    handleFileUploadImage,
+    handleChange,
+    handleCursosChange,
+    navigate,
+    isMobile,
+    openModalDelete,
+    setOpenModalDelete,
+    openModalEdit,
+    setOpenModalEdit,
+    getCourseIcon,
+    handleDeleteClick,
+    handleEditClick,
+    handleDeleteButton,
+    handleSave,
+  } = useStudentList();
 
   if (isLoading) {
     return (
@@ -117,7 +79,6 @@ export const StudentsList = ({ students, isLoading, error }) => {
     >
       {students.map((student) => (
         <React.Fragment key={students._id}>
-          <Link key={students._id} to={`/datos-estudiante/${students._id}`}>
           <Card
             sx={{
               display: "flex",
@@ -136,7 +97,12 @@ export const StudentsList = ({ students, isLoading, error }) => {
             />
 
             <CardActionArea
-              sx={{ flex: 1, display: "flex", justifyContent: "space-between" }}
+              sx={{
+                flex: 1,
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+              onClick={() => navigate(`/datos-estudiante/${student._id}`)}
             >
               <CardContent>
                 <Typography gutterBottom variant="h5">
@@ -220,17 +186,19 @@ export const StudentsList = ({ students, isLoading, error }) => {
               </Button>
             </CardActions>
           </Card>
-          </Link>
           <ModalEdit
+            studentsForm={studentsForm}
+            handleChange={handleChange}
+            handleCursosChange={handleCursosChange}
+            handleFileUploadImage={handleFileUploadImage}
             openModalEdit={openModalEdit}
             setOpenModalEdit={setOpenModalEdit}
-            selectedRow={selectedRow}
-            
+            handleSave={handleSave}
           />
           <ModalDelete
             openModalDelete={openModalDelete}
             setOpenModalDelete={setOpenModalDelete}
-            selectedRow={selectedRow}
+            handleDeleteButton={handleDeleteButton}
           />
         </React.Fragment>
       ))}

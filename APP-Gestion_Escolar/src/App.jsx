@@ -4,12 +4,12 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import AppBarMenu from "./Components/AppBarMenu/AppBarMenu";
-import { StudentsPage } from "./Pages/StudentsPage/StudentsPage";
-import LoginPage from "./Pages/Login/LoginPage";
-import { AddStudentPage } from "./Pages/AddStudentPage/AddStudentPage";
-import { CursosPage } from "./Pages/CursosPage/CursosPage";
-import StudentData from "./Pages/StudentData/StudentData";
+import AppBarMenu from "./components/AppBarMenu/AppBarMenu";
+import { StudentsPage } from "./pages/StudentsPage/StudentsPage";
+import LoginPage from "./pages/Login/LoginPage";
+import { AddStudentPage } from "./pages/AddStudentPage/AddStudentPage";
+import { CursosPage } from "./pages/CursosPage/CursosPage";
+import StudentData from "./pages/StudentData/StudentData";
 
 export const baseURL = import.meta.env.VITE_BASE_URL;
 export const estudiantesURL = import.meta.env.VITE_STUDENTS;

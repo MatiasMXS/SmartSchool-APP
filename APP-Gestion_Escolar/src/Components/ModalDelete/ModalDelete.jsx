@@ -1,5 +1,5 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { useDeleteStudent } from "../../Hooks/useDeleteStudent";
+import { useDeleteStudent } from "../../hooks/useDeleteStudent";
 
 export const ModalDelete = ({
   openModalDelete,

@@ -3,7 +3,7 @@
 import { Box, Modal } from "@mui/material";
 import { useEffect } from "react";
 import { StudentFormComponent } from "../StudentFormComponent/StudentFormComponent";
-import { useForm } from "../../Hooks/useForm";
+import { useForm } from "../../hooks/useForm";
 
 export const ModalEdit = ({
   openModalEdit,

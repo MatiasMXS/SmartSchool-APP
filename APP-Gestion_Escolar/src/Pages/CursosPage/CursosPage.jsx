@@ -1,17 +1,14 @@
 import { Box } from "@mui/material";
-import { Location } from "../../Components/Location/Location";
-import { StudentsList } from "../../Components/StudetsList/StudentsList";
-import {useSelector } from "react-redux";
+import { Location } from "../../components/Location/Location";
+import { StudentsList } from "../../components/StudetsList/StudentsList";
+import { useSelector } from "react-redux";
 
-
-import { CourseSelector } from "../../Components/cursoSelector/CourseSelctor";
-
+import { CourseSelector } from "../../components/cursoSelector/CourseSelctor";
 
 export const CursosPage = () => {
   const { studentsCourse, isLoading, error } = useSelector(
     (state) => state.studentsCourse
   );
-  
 
   return (
     <Box>

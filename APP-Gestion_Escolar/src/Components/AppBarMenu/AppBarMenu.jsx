@@ -10,7 +10,7 @@ import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Fab } from "@mui/material";
-import { useAppBarMenu } from "../../Hooks/useAppbarMenu";
+import { useAppBarMenu } from "../../hooks/useAppbarMenu";
 
 export default function AppBarMenu({ children }) {
   const { location, navigate, value, setValue, handleChange } = useAppBarMenu();

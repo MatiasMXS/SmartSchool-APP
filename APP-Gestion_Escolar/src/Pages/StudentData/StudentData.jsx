@@ -6,7 +6,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import getStudentsId from "../../services/getStudentsId";
 import { CoursesMockup } from "../../Utils/CoursesMockup";
-import ModalEdit from "../../Components/ModalEdit/ModalEdit";
+import ModalEdit from "../../components/ModalEdit/ModalEdit";
 import { ModalDelete } from "../../components/ModalDelete/ModalDelete";
 import { useDeleteStudent } from "../../Hooks/useDeleteStudent";
 import { useForm } from "../../hooks/useForm";

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getStudents } from "../../services/getStudents";
 import StudentsToolBar from "../../components/StudentsToolBar.jsx/StudentsToolBar";
-import { StudentsList } from "../../Components/StudetsList/StudentsList";
+import { StudentsList } from "../../components/StudetsList/StudentsList";
 
 export const StudentsPage = () => {
   const dispatch = useDispatch();

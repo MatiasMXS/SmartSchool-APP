@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Box, Modal } from "@mui/material";
-import { useEffect } from "react";
 import { StudentFormComponent } from "../StudentFormComponent/StudentFormComponent";
-import { useForm } from "../../hooks/useForm";
 
 export const ModalEdit = ({
   openModalEdit,

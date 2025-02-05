@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import { StudentFormComponent } from "../../components/StudentFormComponent/StudentFormComponent";
-import { useForm } from "../../hooks/useForm";
+import { StudentFormComponent } from "../../Components/StudentFormComponent/StudentFormComponent";
+import { useForm } from "../../Hooks/useForm";
 
 export const AddStudentPage = () => {
   const {

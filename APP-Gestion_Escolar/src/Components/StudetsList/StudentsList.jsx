@@ -16,7 +16,7 @@ import estudainteDefaul from "../../assets/estudianteDefaul.png";
 import React from "react";
 import ModalEdit from "../ModalEdit/ModalEdit";
 import { ModalDelete } from "../ModalDelete/ModalDelete";
-import { useStudentList } from "../../hooks/useStudentList";
+import { useStudentList } from "../../Hooks/useStudentList";
 
 export const StudentsList = ({ students, isLoading, error }) => {
   const {

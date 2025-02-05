@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Location } from "../../components/Location/Location";
+import { Location } from "../../Components/Location/Location";
 import { StudentsList } from "../../components/StudetsList/StudentsList";
 import { useSelector } from "react-redux";
 

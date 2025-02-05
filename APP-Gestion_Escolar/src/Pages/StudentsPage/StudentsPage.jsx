@@ -1,5 +1,5 @@
 import { Box, LinearProgress, Typography } from "@mui/material";
-import { Location } from "../../components/Location/Location";
+import { Location } from "../../Components/Location/Location";
 import { StudentsList } from "../../components/StudetsList/StudentsList";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";

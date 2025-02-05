@@ -5,10 +5,10 @@ import estudainteDefaul from "../../assets/estudianteDefaul.png";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import getStudentsId from "../../services/getStudentsId";
-import { CoursesMockup } from "../../utils/CoursesMockup";
-import ModalEdit from "../../components/ModalEdit/ModalEdit";
+import { CoursesMockup } from "../../Utils/CoursesMockup";
+import ModalEdit from "../../Components/ModalEdit/ModalEdit";
 import { ModalDelete } from "../../components/ModalDelete/ModalDelete";
-import { useDeleteStudent } from "../../hooks/useDeleteStudent";
+import { useDeleteStudent } from "../../Hooks/useDeleteStudent";
 import { useForm } from "../../hooks/useForm";
 
 const StudentData = ({ onEdit, onDelete }) => {

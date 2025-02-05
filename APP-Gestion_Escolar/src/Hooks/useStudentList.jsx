@@ -3,7 +3,7 @@ import { useDeleteStudent } from "./useDeleteStudent";
 import { useForm } from "./useForm";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { CoursesMockup } from "../utils/CoursesMockup";
+import { CoursesMockup } from "../Utils/CoursesMockup";
 
 export const useStudentList = () => {
   const {

@@ -1,10 +1,11 @@
 import { Box, LinearProgress, Typography } from "@mui/material";
 import { Location } from "../../Components/Location/Location";
-import { StudentsList } from "../../components/StudetsList/StudentsList";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getStudents } from "../../services/getStudents";
 import StudentsToolBar from "../../components/StudentsToolBar.jsx/StudentsToolBar";
+import { StudentsList } from "../../Components/StudetsList/StudentsList";
 
 export const StudentsPage = () => {
   const dispatch = useDispatch();

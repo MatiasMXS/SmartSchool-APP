@@ -22,3 +22,5 @@ export const StudentsPage = () => {
     </Box>
   );
 };
+
+export default StudentsPage;

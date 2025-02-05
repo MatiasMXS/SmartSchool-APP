@@ -49,8 +49,8 @@ VITE_COURSE = /curso
 ---
 ## 📚**Modo de usp**
 Al ingresar a la aplicación:
--Usuario: escuela
--Contraseña: escuela
+- Usuario: escuela
+- Contraseña: escuela
 
 Páginas de la Aplicación
 | Pagina | Descripción | 	Acceso |
@@ -96,7 +96,7 @@ Algunas de las ideas para continuar este proyecto son:
 ## 👨‍💻**Créditos y despliegue**
 Este proyecto fue desarrollado por Matías Moreno como parte del trabajo final integrador del curso MERN Stack en el POLO Tecnológico de La Rioja.
 - Desarrollador: Matías Moreno
-- GitHub:[MatíasMXS](https://github.com/MatiasMXS)
+- GitHub: [MatíasMXS](https://github.com/MatiasMXS)
 
 
 

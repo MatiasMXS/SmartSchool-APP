@@ -10,7 +10,7 @@ import { CursosPage } from "./Pages/CursosPage/CursosPage";
 
 import StudentsPage from "./Pages/StudentsPage/StudentsPage";
 import AppBarMenu from "./components/AppBarMenu/AppBarMenu";
-import StudentData from "./pages/StudentData/StudentData";
+import StudentData from "./Pages/StudentData/StudentData";
 
 export const baseURL = import.meta.env.VITE_BASE_URL;
 export const estudiantesURL = import.meta.env.VITE_STUDENTS;

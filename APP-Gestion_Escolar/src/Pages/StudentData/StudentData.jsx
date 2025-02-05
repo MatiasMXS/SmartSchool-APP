@@ -9,7 +9,7 @@ import { CoursesMockup } from "../../Utils/CoursesMockup";
 import ModalEdit from "../../components/ModalEdit/ModalEdit";
 import { ModalDelete } from "../../components/ModalDelete/ModalDelete";
 import { useDeleteStudent } from "../../Hooks/useDeleteStudent";
-import { useForm } from "../../hooks/useForm";
+import { useForm } from "../../Hooks/useForm";
 
 const StudentData = ({ onEdit, onDelete }) => {
   const {
